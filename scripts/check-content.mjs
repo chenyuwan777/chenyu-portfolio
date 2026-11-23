@@ -1,6 +1,6 @@
 import { existsSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
-import { profile, modelFigure } from '../src/data/profile.js'
+import { profile } from '../src/data/profile.js'
 import { projects } from '../src/data/projects.js'
 import { publications } from '../src/data/publications.js'
 
@@ -20,12 +20,18 @@ function checkResources(resources = {}, label) {
 
 checkPath(profile.cv, 'CV')
 checkPath(profile.portrait, 'Portrait')
-for (const view of Object.values(modelFigure.views)) checkPath(view.file, 'Model figure')
 const seen = new Set()
 for (const item of projects) {
   if (!/^[a-z0-9-]+$/.test(item.id) || seen.has(item.id)) errors.push('Invalid or duplicate project ID: '+item.id)
   seen.add(item.id)
   checkPath(item.thumbnail, item.id+' thumbnail')
+  if (item.figure) {
+    if (!item.figure.views?.length) errors.push(item.id+' has a figure with no views')
+    for (const view of item.figure.views || []) {
+      if (!view.label || !view.file || !view.alt) errors.push(item.id+' has an incomplete figure view')
+      checkPath(view.file, item.id+' figure')
+    }
+  }
   if (item.media) {
     for (const key of ['src', 'poster', 'captions']) checkPath(item.media[key], item.id+' '+key)
   }

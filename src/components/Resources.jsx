@@ -35,8 +35,6 @@ export function ResourceLinks({ resources = {}, pending = false }) {
   return <div className="resource-block">
     {entries.length > 0 && <ul className="resources flex flex-wrap gap-3">{entries.map(({label,url,Icon}) =>
       <li key={label}><a className="resource-link" href={resourceUrl(url)}><Icon size={16}/>{label}</a></li>)}</ul>}
-    {pending && (!resources.code || !resources.paper) && <p className="quiet-note">
-      {(!resources.code && !resources.paper) ? 'Public code and paper links have not been added.' : (!resources.code ? 'Public code link pending.' : 'Paper link pending.')}
-    </p>}
+    {pending && entries.length === 0 && <p className="quiet-note">Project links pending.</p>}
   </div>
 }

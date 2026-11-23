@@ -1,4 +1,4 @@
-import { BookOpen, Mail, MapPin, Microscope, PanelsTopLeft, ScrollText } from 'lucide-react'
+import { BookOpen, Mail, MapPin, Microscope, ScrollText } from 'lucide-react'
 import { profile } from '../data/profile.js'
 import { publications } from '../data/publications.js'
 import { experience } from '../data/experience.js'
@@ -7,6 +7,8 @@ import { resourceUrl, projectUrl } from '../lib/urls.js'
 import { CvLink, Profiles, ResourceLinks } from './Resources.jsx'
 import ModelFigure from './ModelFigure.jsx'
 import Projects from './Projects.jsx'
+
+const focusProject = projects.find(project => project.id === profile.research.projectId)
 
 function Avatar() {
   return profile.portrait
@@ -23,19 +25,21 @@ function About() {
         <p className="hero-lead">{profile.intro}</p>
         <p className="hero-body">{profile.about}</p>
         <div className="hero-actions flex flex-wrap gap-3">
-          <a className="button button-primary" href="#projects"><PanelsTopLeft size={17}/> Explore projects</a>
+          <a className="button button-primary" href={focusProject ? projectUrl(focusProject.id) : '#projects'}>
+            {focusProject ? 'Explore '+focusProject.title : 'Explore projects'}
+          </a>
           <CvLink/>
         </div>
         <Profiles compact/>
       </div>
-      <ModelFigure/>
+      {focusProject?.figure && <ModelFigure figure={focusProject.figure} href={projectUrl(focusProject.id)} priority/>}
     </div>
   </section>
 }
 
 function Research() {
   const work = profile.research
-  const project = projects.find(item => item.id === work.projectId)
+  const project = focusProject
   return <section id="research" className="section" tabIndex="-1">
     <div className="shell research-layout">
       <div>

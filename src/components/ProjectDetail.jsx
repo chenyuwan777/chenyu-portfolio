@@ -1,6 +1,7 @@
 import { BookOpen, PanelsTopLeft, Film } from 'lucide-react'
 import { ProjectImage } from './Projects.jsx'
 import { ResourceLinks } from './Resources.jsx'
+import ModelFigure from './ModelFigure.jsx'
 import { resourceUrl } from '../lib/urls.js'
 
 function ProjectMedia({ item }) {
@@ -25,7 +26,7 @@ export default function ProjectDetail({ project }) {
       <a className="back-link" href="#projects"><PanelsTopLeft size={17}/> All projects</a>
       <p className="eyebrow">{project.field}{project.placeholder ? ' / Project placeholder' : ''}</p>
       <h1>{project.title}</h1>
-      <p className="detail-intro">{project.summary}</p>
+      <p className="detail-intro">{project.detailIntro || project.summary}</p>
       {project.technologies?.length > 0 && <ul className="tags" aria-label="Technologies used">{project.technologies.map(tech => <li key={tech}>{tech}</li>)}</ul>}
     </div>
     <div className="detail-layout shell">
@@ -33,6 +34,11 @@ export default function ProjectDetail({ project }) {
         {project.placeholder && <aside className="placeholder-panel"><BookOpen size={21}/><div><strong>Project placeholder</strong><p>The illustration introduces the topic. Project methods, individual contributions, and measured results will appear here when available.</p></div></aside>}
         {project.problem && <section><h2>Problem & motivation</h2><p>{project.problem}</p></section>}
         {project.approach && <section><h2>Technical approach</h2><p>{project.approach}</p></section>}
+        {project.steps?.length > 0 && <section><h2>How the AI works</h2>
+          <ol className="method-steps">{project.steps.map(step =>
+            <li key={step.title}><h3>{step.title}</h3><p>{step.text}</p></li>
+          )}</ol>
+        </section>}
         {project.contributions?.length > 0 && <section><h2>My contributions</h2><ul className="contributions">{project.contributions.map(item => <li key={item}>{item}</li>)}</ul></section>}
         {project.results?.length > 0 && <section><h2>Quantitative results</h2><dl className="results">{project.results.map(({ label, value }) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl></section>}
       </div>
@@ -41,6 +47,7 @@ export default function ProjectDetail({ project }) {
           <figure className="project-media"><ProjectImage project={project}/><figcaption>{project.imageAlt}</figcaption></figure>
           <ProjectMedia/>
         </>}
+        {project.figure?.showOnDetail && <ModelFigure figure={project.figure}/>}
         <div className="detail-resources"><h2>Project links</h2><ResourceLinks resources={project.resources} pending/></div>
       </aside>
     </div>

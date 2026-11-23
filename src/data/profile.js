@@ -9,8 +9,8 @@ export const profile = {
   universityShort: 'UIUC',
   major: 'Statistics & Computer Science',
   location: 'Urbana-Champaign, Illinois',
-  intro: 'I build simulated worlds from video and test what robots can do in them.',
-  about: 'I study Statistics and Computer Science at the University of Illinois Urbana-Champaign. My research connects embodied AI, robot learning, and machine learning systems.',
+  intro: 'I use AI coding agents to turn room videos into simulations for robots.',
+  about: 'I study Statistics and Computer Science at the University of Illinois Urbana-Champaign. My robotics research asks whether a simulated arm can grasp, move, and place objects in those reconstructed rooms.',
   email: 'chenyuw7@illinois.edu',
   portrait: null,
   cv: 'documents/chenyu-wan-cv.pdf',
@@ -33,14 +33,4 @@ export const profile = {
     projectId: 'simreadybench',
   },
   contact: 'For research collaborations, graduate study, or AI/ML engineering opportunities, the best way to reach me is by email.',
-}
-
-export const modelFigure = {
-  label: 'MuJoCo model',
-  title: 'Franka Panda',
-  caption: 'Seven-axis manipulator · orthographic views of the same pose',
-  views: {
-    surface: { label: 'Surface', file: 'media/panda-surface.webp', alt: 'Shaded surface of the seven-axis Franka Panda with its two-finger gripper open.' },
-    points: { label: 'Points', file: 'media/panda-points.webp', alt: 'Sampled surface points tracing the same robot geometry and pose.' },
-  },
 }

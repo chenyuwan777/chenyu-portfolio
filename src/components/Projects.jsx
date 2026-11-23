@@ -16,7 +16,7 @@ export default function Projects() {
   return <section id="projects" tabIndex="-1" className="section projects-section">
     <div className="shell">
       <div className="section-head">
-        <h2>Selected projects</h2>
+        <h2>Selected AI projects</h2>
         <div className="filters" role="group" aria-label="Filter projects">
           {filters.map(group => <button type="button" key={group} aria-pressed={selected === group} onClick={() => setSelected(group)}>{group}</button>)}
         </div>

@@ -1,36 +1,50 @@
 // Local images, GIFs, videos, and caption tracks are relative to public/.
 // Leave missing fields null or empty. The interface labels gaps without creating broken links.
-const publicScene = 'https://huggingface.co/datasets/chenyuwan666/SCALEML/tree/125cd8d62f964a3c23a502fd00307d3f802da446/chenyu/codex/scenes/mujoco/41254906/20261109T183938Z'
 
 export const projects = [
   {
     id: 'simreadybench',
     title: 'SimReadyBench',
-    field: 'World reconstruction',
+    field: 'Embodied AI',
     group: 'Robotics',
-    summary: 'Using coding agents to reconstruct indoor spaces that a robot can interact with.',
+    summary: 'AI coding agents reconstruct rooms from video. A simulated robot helps test whether the resulting objects can be grasped and placed.',
+    detailIntro: 'I used Codex to generate 1,000 indoor simulations from RealEstate10K videos. I worked with teammates on an evaluator that uses a language model to design manipulation tests and MuJoCo to check grasp stability, collisions, and placement.',
     thumbnail: 'media/scene-views.webp',
-    imageAlt: 'Three rendered viewpoints from a publicly archived MuJoCo kitchen reconstruction.',
-    problem: 'A visually plausible room can have incorrect geometry, scale, or contacts. We need ways to ask whether the generated world supports the interactions a robot would try.',
-    approach: 'Coding agents produce scene assets from visual references. The generated environment, agent inputs, and validation records can then be inspected together. The example here shows three views from one archived generation run.',
-    technologies: ['Python', 'MuJoCo', 'Coding agents', 'Docker'],
+    imageAlt: 'Three rendered views of one reconstructed kitchen, showing cabinets, counters, and a dining table.',
+    figure: {
+      layout: 'strip',
+      title: 'SimReadyBench',
+      caption: 'One kitchen reconstructed from video in MuJoCo.',
+      controls: 'Kitchen viewpoint',
+      views: [
+        { label: 'Entrance', file: 'media/kitchen-entrance.jpg', alt: 'View into the reconstructed kitchen from the entrance, facing the window and cabinets.' },
+        { label: 'Cabinets', file: 'media/kitchen-cabinets.jpg', alt: 'A second viewpoint along the cabinets and patterned backsplash.' },
+        { label: 'Dining area', file: 'media/kitchen-dining.jpg', alt: 'A view toward the dining table and chairs in the same reconstructed room.' },
+      ],
+    },
+    problem: 'A kitchen can look convincing even if its counter cannot support a cup. We wanted to tell where a manipulation failed and what that failure revealed about the scene.',
+    steps: [
+      { title: 'Reconstruct the room', text: 'A coding agent uses video frames as visual references and writes a MuJoCo scene that describes the room geometry and furniture placement.' },
+      { title: 'Generate a manipulation test', text: 'A language model uses a task description and the scene’s object list to propose actions, such as picking up a cup and placing it on a counter.' },
+      { title: 'Evaluate the interaction', text: 'We check whether the arm reached the cup, whether the gripper held it, and whether the counter supported it after release. Our revision prototype feeds these observations back to the agent so it can adjust the grasp or approach.' },
+    ],
+    technologies: ['Codex', 'MuJoCo', 'Python', 'Docker'],
     contributions: [
-      'Generated indoor simulation environments from RealEstate10K footage using Codex and prepared outputs for review.',
-      'Collected and processed real-room videos, floor plans, object dimensions, and horizontal clearances to provide spatial references.',
-      'Organized generation runs and preserved prompts, inputs, logs, contracts, and outputs for reproducible evaluation.',
+      'Ran the Codex reconstructions and archived each run’s prompts, inputs, logs, and generated scene so teammates could examine individual results.',
+      'Designed 64 robotics tasks. Six of my tasks were among the 20 the team selected for further development.',
+      'Collected room videos, floor plans, object dimensions, and clearances to give the team real measurements for checking reconstructed layouts.',
     ],
     results: [
       { value: '1,000', label: 'indoor environments generated in the RealEstate10K reconstruction effort' },
-      { value: '20', label: 'real-world environment datasets collected and processed for reference' },
+      { value: '20', label: 'real rooms documented with dimensions and floor plans' },
     ],
-    resources: { code: publicScene.replace('/tree/', '/resolve/') + '/output.tar.gz', codeLabel: 'Scene source (.tar.gz)', paper: null, extras: [
-      { label: 'Public dataset', url: 'https://huggingface.co/datasets/chenyuwan666/SCALEML' },
-      { label: 'Featured scene archive', url: publicScene },
+    resources: { code: null, paper: null, extras: [
+      { label: 'MuJoCo manipulation tests', url: '#project/mujoco-manipulation' },
     ] },
     media: {
       kind: 'video', src: 'media/scene-views.mp4', captions: 'media/scene-views.vtt', poster: 'media/scene-views.webp',
       title: 'Three views of a reconstructed kitchen',
-      description: 'A silent sequence of rendered stills from archived scene 41254906 shows the kitchen entrance, the cabinet wall, and the dining table.',
+      description: 'Three rendered stills from one Codex-generated scene show the kitchen entrance, cabinet wall, and dining table.',
     },
   },
   {
@@ -41,6 +55,16 @@ export const projects = [
     summary: 'Tracing grasp, contact, and release failures in tests for a simulated Franka Panda.',
     thumbnail: 'media/panda-card.webp',
     imageAlt: 'Surface points sampled from the articulated model of a seven-axis Franka Panda.',
+    figure: {
+      showOnDetail: true,
+      title: 'Franka Panda',
+      caption: 'Two representations of the arm in the same pose.',
+      controls: 'Robot model representation',
+      views: [
+        { label: 'Surface', file: 'media/panda-surface.webp', alt: 'Shaded surface of the seven-axis Franka Panda with its two-finger gripper open.' },
+        { label: 'Points', file: 'media/panda-points.webp', alt: 'Sampled surface points tracing the same robot geometry and pose.' },
+      ],
+    },
     problem: 'A failed pickup can originate in the motion plan, the grasp, or the simulated object. A test becomes more informative when it records where the interaction broke down.',
     approach: 'An LLM turns task descriptions and scene observations into manipulation tests. The execution loop uses reachability and collision feedback during approach, checks gripper contact at pickup, and measures whether the object stays supported after release.',
     technologies: ['MuJoCo', 'Python', 'Franka Panda', 'Inverse kinematics'],

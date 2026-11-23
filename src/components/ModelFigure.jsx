@@ -1,26 +1,35 @@
 import { useState } from 'react'
-import { Box, Layers3, Scan, ScanLine } from 'lucide-react'
 import { resourceUrl } from '../lib/urls.js'
-import { modelFigure } from '../data/profile.js'
 
-export default function ModelFigure() {
-  const [mode, setMode] = useState('surface')
-  const current = modelFigure.views[mode]
+export default function ModelFigure({ figure, href, priority = false }) {
+  const [selected, setSelected] = useState(0)
+  const current = figure.views[selected]
+  const strip = figure.layout === 'strip'
+
   return <figure className="model-figure">
-    <div className="model-canvas">
-      <img src={resourceUrl(current.file)} alt={current.alt} width="1320" height="940" fetchPriority="high"/>
-      <div className="model-label"><ScanLine size={15}/> {modelFigure.label}</div>
-      <div className="model-corner" aria-hidden="true">+</div>
-      <div className="model-bottom">
-        <div className="model-title">{modelFigure.title}</div>
-        <div className="model-switch" role="group" aria-label="Model representation">
-          {Object.entries(modelFigure.views).map(([key, view]) => <button type="button" key={key}
-            aria-pressed={mode === key} onClick={() => setMode(key)}>
-            {key === 'surface' ? <Layers3 size={14}/> : <Scan size={14}/>} {view.label}
-          </button>)}
-        </div>
+    {strip ? <div className="view-strip" role="group" aria-label={figure.controls}>
+      {figure.views.map((view, index) =>
+        <button type="button" key={view.file} aria-label={view.label} aria-pressed={selected === index}
+          onClick={() => setSelected(index)}>
+          <img src={resourceUrl(view.file)} alt={view.alt} width="360" height="480"
+            fetchPriority={priority && index === 0 ? 'high' : 'auto'}/>
+          <span>{view.label}</span>
+        </button>
+      )}
+    </div> : <img className="single-view" src={resourceUrl(current.file)} alt={current.alt}
+      width="1320" height="940" loading="lazy"/>}
+    <figcaption className="figure-caption">
+      <div className="figure-description">
+        <strong>{href ? <a href={href}>{figure.title}</a> : figure.title}</strong>
+        <p>{figure.caption}</p>
       </div>
-    </div>
-    <figcaption><Box size={14}/> {modelFigure.caption}</figcaption>
+      {strip ? <span className="sr-only" aria-live="polite">{current.alt}</span>
+        : <div className="model-switch" role="group" aria-label={figure.controls}>
+          {figure.views.map((view, index) =>
+            <button type="button" key={view.file} aria-pressed={selected === index}
+              onClick={() => setSelected(index)}>{view.label}</button>
+          )}
+        </div>}
+    </figcaption>
   </figure>
 }
