@@ -2,7 +2,7 @@
 
 A static academic portfolio built with React, Vite, and Tailwind CSS. The home page includes an interactive comparison of two renderings of a Franka Panda model, four filterable projects, research interests, publications, experience, contact information, and a downloadable CV. Each project has a shareable URL such as `/#project/simreadybench`. The site uses local fonts and media.
 
-![Portfolio home page with research introduction and Franka Panda model viewer](docs/preview.webp)
+![Portfolio home page with research introduction and Franka Panda model viewer](.github/preview.webp)
 
 ## Run locally
 
@@ -24,19 +24,20 @@ The build writes `dist/` and checks configured project IDs and local asset paths
 
 ## Publish on GitHub Pages
 
-1. Create an **empty public repository on your own GitHub account**. For the account homepage, name it exactly `YOUR-USERNAME.github.io`. For a project site, a name such as `chenyu-portfolio` works. Leave the initial README, license, and gitignore unchecked since this folder already contains a Git history.
-2. From the local portfolio directory, add your own repository as the remote and push its prepared `main` branch. Replace both uppercase placeholders.
+The [live portfolio](https://chenyuwan777.github.io/chenyu-portfolio/) is served from `main`, folder `/docs`. GitHub runs its built-in **pages build and deployment** workflow after a push. The React sources remain in `src/`. The `docs/` folder contains the compiled website and its public media.
 
-   ```sh
-   git remote add origin https://github.com/YOUR-USERNAME/YOUR-REPOSITORY.git
-   git push -u origin main
-   ```
+Enable the repository’s publishing hook when you clone it.
 
-3. Open **Settings → Pages → Build and deployment → Source** in that repository and choose **GitHub Actions**. If Actions are disabled for the repository, enable them in **Settings → Actions → General**.
-4. Open **Actions → Deploy portfolio to GitHub Pages**. If the initial push ran before Pages was enabled, choose **Run workflow**, select `main`, and run it. The build installs from the lockfile, builds the static assets for the repository’s actual base path, and uploads `dist/`. The deploy job publishes that artifact.
-5. Open the **github-pages** environment link on the successful run. A user site is served at `https://YOUR-USERNAME.github.io/`. A project site is served at `https://YOUR-USERNAME.github.io/YOUR-REPOSITORY/`.
+```sh
+npm ci
+git config --local core.hooksPath .githooks
+```
 
-Later pushes to `main` run the same workflow automatically. The workflow lives in [pages.yml](.github/workflows/pages.yml). The Pages settings and artifact deployment steps are documented in the [GitHub Pages guide](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages) and the [Vite deployment guide](https://vite.dev/guide/static-deploy#github-pages).
+Edit the portfolio, stage the changes you want to publish, commit, and push `main`. The hook builds the staged source and includes the updated website in the same commit. To prepare the same snapshot manually, stage your edits and run `npm run pages:stage` before committing. Web-only source edits need a local rebuild of `docs/` to appear on the site.
+
+To use this setup on another public GitHub repository, select **Settings → Pages → Deploy from a branch → main → /docs**. The build uses relative asset URLs for both user sites and project sites.
+
+For repositories that can run custom hosted Actions, [pages.yml](.github/workflows/pages.yml) also supports building directly on GitHub. Select **GitHub Actions** as the Pages source, enable **Deploy portfolio to GitHub Pages** in the Actions tab, and run it once on `main`. Subsequent pushes to `main` trigger that workflow.
 
 ## Edit content
 
