@@ -1,6 +1,6 @@
 # Chenyu Wan · research portfolio
 
-A static academic portfolio built with React, Vite, and Tailwind CSS. The home page features SimReadyBench with three selectable views of a single generated kitchen, four filterable projects, research interests, publications, experience, contact information, and a downloadable CV. Each project has a shareable URL such as `/#project/simreadybench`. The site uses Helvetica Neue, Helvetica, or Arial from the visitor’s device. Project images and videos are included in the repository.
+A static academic portfolio built with React, Vite, and Tailwind CSS. The home page features SimReadyBench with three selectable views of a single generated kitchen, the two featured robotics projects, research interests, publications, experience, contact information, and a downloadable CV. Each project has a shareable URL such as `/#project/simreadybench`. The site uses Helvetica Neue, Helvetica, or Arial from the visitor’s device. Project images and videos are included in the repository.
 
 ![Portfolio home page with Chenyu Wan’s research introduction and three views of a reconstructed kitchen](.github/preview.webp)
 
@@ -57,7 +57,7 @@ Use paths such as `media/portrait.webp` for files stored in `public/`. This keep
 ### Complete the placeholders
 
 - Set `profile.portrait` to a photo path to replace the initials avatar. Set the LinkedIn and Google Scholar URLs under `profile.social` to activate those links.
-- The PPO entry is an explicitly labeled project placeholder. Its graph illustrates the clipped objective for positive advantage. Add your own problem, approach, evidence, and contributions, then set `placeholder` to `false`.
+- Paused project entries and their images are kept in [drafts/](drafts/). To restore one, move its entry into `src/data/projects.js` and copy its images into `public/media/`.
 - The publications array starts empty. Add a verified listing when there is a paper to share.
 - Resources that have no public URL can stay `null`. A project's code resource can have a descriptive `codeLabel`.
 
@@ -110,6 +110,6 @@ Add a record like the one below to the exported array in `publications.js`. The 
 
 - The kitchen views are original renderings from Chenyu’s SimReadyBench scene `41254906`, run `20261109T183938Z`. The home page shows the final kitchen entrance, left cabinet, and dining views. The short video sequences three stills from the same run.
 - The Panda figures and silent orbit are original renderings of the [MuJoCo Menagerie Franka Emika Panda model](https://github.com/google-deepmind/mujoco_menagerie/tree/main/franka_emika_panda). The model credit and Apache 2.0 license accompany the images in [public/media/](public/media/panda-model-license.txt). The video is a camera study of a fixed pose.
-- The PPO diagram illustrates the objective from [Schulman et al.](https://arxiv.org/abs/1707.06347). The network comparison uses the reported 95th-percentile model-guided score and the range of five random baselines from Chenyu’s CV.
+- The archived PPO diagram illustrates the objective from [Schulman et al.](https://arxiv.org/abs/1707.06347). The archived network comparison uses the reported 95th-percentile model-guided score and the range of five random baselines from Chenyu’s CV.
 - Experience, project counts, and network results come from Chenyu’s CV and project records. The downloadable CV uses the AI robotics version with the university email as its public contact line.
 - Package notices are in [public/licenses/](public/licenses/).

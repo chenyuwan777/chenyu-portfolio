@@ -11,15 +11,15 @@ export function ProjectImage({ project }) {
 
 export default function Projects() {
   const [selected, setSelected] = useState('All')
-  const filters = ['All', ...new Set(projects.map(project => project.group))]
+  const groups = [...new Set(projects.map(project => project.group))]
   const visible = selected === 'All' ? projects : projects.filter(project => project.group === selected)
   return <section id="projects" tabIndex="-1" className="section projects-section">
     <div className="shell">
       <div className="section-head">
         <h2>Selected AI projects</h2>
-        <div className="filters" role="group" aria-label="Filter projects">
-          {filters.map(group => <button type="button" key={group} aria-pressed={selected === group} onClick={() => setSelected(group)}>{group}</button>)}
-        </div>
+        {groups.length > 1 && <div className="filters" role="group" aria-label="Filter projects">
+          {['All', ...groups].map(group => <button type="button" key={group} aria-pressed={selected === group} onClick={() => setSelected(group)}>{group}</button>)}
+        </div>}
       </div>
       <p role="status" className="sr-only">{visible.length} projects shown</p>
       <div className="project-grid grid sm:grid-cols-2">
