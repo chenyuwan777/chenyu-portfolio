@@ -11,7 +11,7 @@ const focusProject = projects.find(project => project.id === profile.research.pr
 
 function Avatar() {
   return profile.portrait
-    ? <img className="avatar" src={resourceUrl(profile.portrait)} alt={'Portrait of '+profile.name} width="42" height="42"/>
+    ? <img className="avatar" src={resourceUrl(profile.portrait)} alt={'Portrait of '+profile.name} width="689" height="965"/>
     : <span className="avatar avatar-initials" aria-hidden="true">{profile.initials}</span>
 }
 
@@ -33,8 +33,13 @@ export default function Home() {
     <section className="hero-section" aria-labelledby="hero-name">
       <div className="shell hero-grid">
         <div className="hero-copy">
-          <div className="identity-line"><Avatar/><span>{profile.role}<i aria-hidden="true">/</i>{profile.universityShort}</span></div>
-          <h1 id="hero-name">{profile.name}</h1>
+          <div className="hero-identity">
+            <Avatar/>
+            <div>
+              <p className="identity-line">{profile.role}<i aria-hidden="true">/</i>{profile.universityShort}</p>
+              <h1 id="hero-name">{profile.name}</h1>
+            </div>
+          </div>
           <p className="hero-lead">{profile.intro}</p><p className="hero-body">{profile.about}</p>
           <div className="hero-actions flex flex-wrap gap-3">
             <a className="button button-primary" href={pageUrl('projects')}>View projects <ArrowUpRight size={16}/></a><CvLink/>

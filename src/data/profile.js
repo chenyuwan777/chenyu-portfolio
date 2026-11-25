@@ -24,7 +24,7 @@ export const profile = {
   intro: 'I build simulated rooms from video and test what a robot can do in them.',
   about: 'I study Statistics and Computer Science at the University of Illinois Urbana-Champaign. In Prof. Tong Zhang’s group, I use coding agents to reconstruct indoor scenes and a simulated robot arm to test whether it can pick up and place the objects it sees.',
   email: 'chenyuw7@illinois.edu',
-  portrait: null,
+  portrait: 'media/chenyu-wan.jpg',
   cv: 'documents/chenyu-wan-cv.pdf',
   social: {
     github: 'https://github.com/chenyuwan777',
