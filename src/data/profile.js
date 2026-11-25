@@ -9,14 +9,26 @@ export const profile = {
   universityShort: 'UIUC',
   major: 'Statistics & Computer Science',
   location: 'Urbana-Champaign, Illinois',
-  intro: 'I use AI coding agents to turn room videos into simulations for robots.',
-  about: 'I study Statistics and Computer Science at the University of Illinois Urbana-Champaign. My robotics research asks whether a simulated arm can grasp, move, and place objects in those reconstructed rooms.',
+  education: {
+    degree: 'B.S.L.A.S. in Statistics & Computer Science',
+    minor: 'Economics minor, Econometrics track (in progress)',
+    period: 'Aug 2024 – May 2028 (expected)',
+    gpa: '4.0/4.0',
+    honors: 'Dean’s List, 2024–2025 and 2025–2026',
+  },
+  skills: [
+    { label: 'Programming', items: ['Python', 'C++', 'Java', 'SQL', 'Bash'] },
+    { label: 'Machine learning & data', items: ['PyTorch', 'scikit-learn', 'pandas', 'NumPy', 'XGBoost', 'LightGBM', 'SHAP'] },
+    { label: 'Systems & simulation', items: ['Linux', 'Git', 'TCP/IP', 'Mahimahi', 'MuJoCo'] },
+  ],
+  intro: 'I build simulated rooms from video and test what a robot can do in them.',
+  about: 'I study Statistics and Computer Science at the University of Illinois Urbana-Champaign. In Prof. Tong Zhang’s group, I use coding agents to reconstruct indoor scenes and a simulated robot arm to test whether it can pick up and place the objects it sees.',
   email: 'chenyuw7@illinois.edu',
   portrait: null,
   cv: 'documents/chenyu-wan-cv.pdf',
   social: {
     github: 'https://github.com/chenyuwan777',
-    linkedin: null,
+    linkedin: 'https://www.linkedin.com/in/chenyu-wan-0782b0377/',
     scholar: null,
   },
   interests: [
@@ -29,7 +41,7 @@ export const profile = {
   research: {
     title: 'When is a reconstructed world ready for a robot?',
     description: 'A room can look convincing in a video while a gripper passes through a drawer or a cup slips after release. At Illinois, I study how to turn those interactions into tests of a simulated scene.',
-    current: 'I work on coding-agent reconstruction and manipulation evaluation in MuJoCo with Tong Zhang at UIUC.',
+    current: 'I check gripper contact at pickup and object stability after release. These observations help me trace a failure back to the motion, the grasp, or the reconstructed surface.',
     projectId: 'simreadybench',
   },
   contact: 'For research collaborations, graduate study, or AI/ML engineering opportunities, the best way to reach me is by email.',

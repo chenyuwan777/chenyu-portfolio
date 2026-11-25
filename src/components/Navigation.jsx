@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import { Box, Mail, Menu, Moon, Sun, X } from 'lucide-react'
+import { pageUrl } from '../lib/urls.js'
 import { profile } from '../data/profile.js'
 
-export const sections = [
-  { id: 'about', label: 'About' }, { id: 'projects', label: 'Projects' },
-  { id: 'research', label: 'Research' }, { id: 'publications', label: 'Publications' },
-  { id: 'experience', label: 'Experience' },
+const sections = [
+  { id: 'home', label: 'About' }, { id: 'experience', label: 'Experience' },
+  { id: 'projects', label: 'Projects' }, { id: 'research', label: 'Research' },
 ]
 
 function getDark() {
@@ -57,17 +57,17 @@ export default function Navigation({ active, route }) {
   }, [open])
   return <header className="topbar">
     <div className="shell nav-row">
-      <a href="#about" className="brand" onClick={() => setOpen(false)} aria-label={profile.name + ', home'}>
+      <a href={pageUrl('home')} className="brand" onClick={() => setOpen(false)} aria-label={profile.name + ', home'}>
         <span className="brand-sign"><Box size={22} strokeWidth={1.65}/></span>
         <span>{profile.name}</span>
       </a>
       <nav id="site-nav" className={'primary-nav' + (open ? ' is-open' : '')} aria-label="Main navigation">
-        {sections.map(({ id, label }) => <a key={id} href={'#'+id} aria-current={active === id ? 'location' : undefined} onClick={() => setOpen(false)}>{label}</a>)}
-        <a className="mobile-contact" href="#contact" onClick={() => setOpen(false)}>Contact</a>
+        {sections.map(({ id, label }) => <a key={id} href={pageUrl(id)} aria-current={active === id ? 'page' : undefined} onClick={() => setOpen(false)}>{label}</a>)}
+        <a className="mobile-contact" href={pageUrl('contact')} aria-current={active === 'contact' ? 'page' : undefined} onClick={() => setOpen(false)}>Contact</a>
       </nav>
       <div className="nav-tools flex items-center gap-2">
         <ThemeToggle/>
-        <a className="contact-nav" href="#contact"><Mail size={15}/> Contact</a>
+        <a className="contact-nav" href={pageUrl('contact')} aria-current={active === 'contact' ? 'page' : undefined}><Mail size={15}/> Contact</a>
         <button type="button" ref={toggle} className="mobile-toggle icon-button" aria-label={open ? 'Close navigation' : 'Open navigation'} aria-controls="site-nav" aria-expanded={open} onClick={() => setOpen(!open)}>
           {open ? <X size={23}/> : <Menu size={23}/>}
         </button>

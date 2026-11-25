@@ -1,8 +1,17 @@
 # Chenyu Wan · research portfolio
 
-A static academic portfolio built with React, Vite, and Tailwind CSS. The home page features SimReadyBench with three selectable views of a single generated kitchen, the two featured robotics projects, research interests, publications, experience, contact information, and a downloadable CV. Each project has a shareable URL such as `/#project/simreadybench`. The site uses Helvetica Neue, Helvetica, or Arial from the visitor’s device. Project images and videos are included in the repository.
+A static academic portfolio built with React, Vite, and Tailwind CSS. The About page introduces Chenyu’s education and robot learning research. Experience, Projects, Research, and Contact have independent pages, and each project has its own detail page with media. The site uses the visitor’s Helvetica Neue, Helvetica, or Arial and supports light and dark themes.
 
-![Portfolio home page with Chenyu Wan’s research introduction and three views of a reconstructed kitchen](.github/preview.webp)
+| Page | Path relative to the portfolio |
+| --- | --- |
+| About | `./` |
+| Experience and education | `experience/` |
+| Selected AI projects | `projects/` |
+| Project detail | `projects/simreadybench/` |
+| Research interests and public papers | `research/` |
+| Contact and downloadable CV | `contact/` |
+
+Each route has a physical HTML file in the production build for direct visits and page reloads. Previous project and section bookmarks continue to work.
 
 ## Run locally
 
@@ -43,7 +52,7 @@ For repositories that can run custom hosted Actions, [pages.yml](.github/workflo
 
 | Change | File or folder |
 | --- | --- |
-| Name, bio, interests, institution, email, SEO title, portrait, CV path, social links | [src/data/profile.js](src/data/profile.js) |
+| Name, bio, education, skills, interests, email, SEO title, portrait, CV path and social links | [src/data/profile.js](src/data/profile.js) |
 | Featured project and interactive views | Set `profile.research.projectId` in [profile.js](src/data/profile.js) and edit that project’s `figure` in [projects.js](src/data/projects.js). |
 | Projects, motivation, approach, technologies, results, individual contributions and links | [src/data/projects.js](src/data/projects.js) |
 | Publications | [src/data/publications.js](src/data/publications.js) |
@@ -88,7 +97,7 @@ media: {
 }
 ```
 
-Native MP4 videos use browser playback controls. Use `kind: 'embed'` with a provider’s HTTPS embed URL for a hosted video, or `kind: 'image'` for a still or GIF. Include captions for speech and a text description of meaningful visual events. To link directly to a project, append `#project/PROJECT-ID` to the site URL.
+Native MP4 videos use browser playback controls. Use `kind: 'embed'` with a provider’s HTTPS embed URL for a hosted video, or `kind: 'image'` for a still or GIF. Include captions for speech and a text description of meaningful visual events. To link directly to a project, append `projects/PROJECT-ID/` to the site URL.
 
 ### Add a publication
 
@@ -111,5 +120,5 @@ Add a record like the one below to the exported array in `publications.js`. The 
 - The kitchen views are original renderings from Chenyu’s SimReadyBench scene `41254906`, run `20261109T183938Z`. The home page shows the final kitchen entrance, left cabinet, and dining views. The short video sequences three stills from the same run.
 - The Panda figures and silent orbit are original renderings of the [MuJoCo Menagerie Franka Emika Panda model](https://github.com/google-deepmind/mujoco_menagerie/tree/main/franka_emika_panda). The model credit and Apache 2.0 license accompany the images in [public/media/](public/media/panda-model-license.txt). The video is a camera study of a fixed pose.
 - The archived PPO diagram illustrates the objective from [Schulman et al.](https://arxiv.org/abs/1707.06347). The archived network comparison uses the reported 95th-percentile model-guided score and the range of five random baselines from Chenyu’s CV.
-- Experience, project counts, and network results come from Chenyu’s CV and project records. The downloadable CV uses the AI robotics version with the university email as its public contact line.
+- Experience, project counts, and network results come from Chenyu’s CV and project records. The downloadable PDF is a public version of the current résumé. Update it separately from the private application copy.
 - Package notices are in [public/licenses/](public/licenses/).

@@ -9,13 +9,11 @@ const profiles = [
 ]
 
 export function Profiles({ compact = false }) {
-  const available = compact ? profiles.filter(({ key }) => profile.social[key]) : profiles
+  const available = profiles.filter(({ key }) => profile.social[key])
   return <ul className="profiles" aria-label="Professional profiles">
     {compact && <li><a href={'mailto:'+profile.email}><Mail size={17}/> Email</a></li>}
     {available.map(({ key, label, Icon }) => <li key={key}>
-      {profile.social[key]
-        ? <a href={profile.social[key]}><Icon size={17}/> {label}</a>
-        : <span className="pending-link"><Icon size={17}/> {label} <small>Link pending</small></span>}
+      <a href={profile.social[key]}><Icon size={17}/> {label}</a>
     </li>)}
   </ul>
 }

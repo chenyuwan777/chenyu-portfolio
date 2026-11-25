@@ -7,8 +7,8 @@ export const projects = [
     title: 'SimReadyBench',
     field: 'Embodied AI',
     group: 'Robotics',
-    summary: 'AI coding agents reconstruct rooms from video. A simulated robot helps test whether the resulting objects can be grasped and placed.',
-    detailIntro: 'I used Codex to generate 1,000 indoor simulations from RealEstate10K videos. I worked with teammates on an evaluator that uses a language model to design manipulation tests and MuJoCo to check grasp stability, collisions, and placement.',
+    summary: 'Reconstructing indoor rooms from video with coding agents and testing whether their surfaces and objects support robot manipulation.',
+    detailIntro: 'I used Codex to generate 1,000 indoor simulations from RealEstate10K videos. To probe the resulting scenes, I built an evaluator that uses video frames and object lists to generate manipulation tests, then checks what happens during pickup and after release in MuJoCo.',
     thumbnail: 'media/scene-views.webp',
     imageAlt: 'Three rendered views of one reconstructed kitchen, showing cabinets, counters, and a dining table.',
     figure: {
@@ -25,8 +25,8 @@ export const projects = [
     problem: 'A kitchen can look convincing even if its counter cannot support a cup. We wanted to tell where a manipulation failed and what that failure revealed about the scene.',
     steps: [
       { title: 'Reconstruct the room', text: 'A coding agent uses video frames as visual references and writes a MuJoCo scene that describes the room geometry and furniture placement.' },
-      { title: 'Generate a manipulation test', text: 'A language model uses a task description and the scene’s object list to propose actions, such as picking up a cup and placing it on a counter.' },
-      { title: 'Evaluate the interaction', text: 'We check whether the arm reached the cup, whether the gripper held it, and whether the counter supported it after release. Our revision prototype feeds these observations back to the agent so it can adjust the grasp or approach.' },
+      { title: 'Generate a manipulation test', text: 'Given video frames and an object list, the evaluator produces a task that exercises the scene, such as picking up a cup and placing it on a counter.' },
+      { title: 'Evaluate the interaction', text: 'The simulation records whether the gripper reached and held the object and whether it stayed in place after release. Checking each stage helps distinguish a failed grasp from a placement that needs investigation.' },
     ],
     technologies: ['Codex', 'MuJoCo', 'Python', 'Docker'],
     contributions: [
@@ -52,7 +52,8 @@ export const projects = [
     title: 'MuJoCo robotic manipulation',
     field: 'Robot learning',
     group: 'Robotics',
-    summary: 'Tracing grasp, contact, and release failures in tests for a simulated Franka Panda.',
+    summary: 'Executing language-guided pick-and-place plans with a Franka Panda and using collision and reachability feedback to revise its motions.',
+    detailIntro: 'I implemented the execution loop for a simulated Franka Panda. A language model translates a task description and scene geometry into grasp, lift, and placement actions. The arm’s behavior in MuJoCo provides feedback for the next attempt.',
     thumbnail: 'media/panda-card.webp',
     imageAlt: 'Surface points sampled from the articulated model of a seven-axis Franka Panda.',
     figure: {
@@ -66,12 +67,12 @@ export const projects = [
       ],
     },
     problem: 'A failed pickup can originate in the motion plan, the grasp, or the simulated object. A test becomes more informative when it records where the interaction broke down.',
-    approach: 'An LLM turns task descriptions and scene observations into manipulation tests. The execution loop uses reachability and collision feedback during approach, checks gripper contact at pickup, and measures whether the object stays supported after release.',
+    approach: 'During approach, the execution loop checks whether the target is reachable and whether the planned motion collides with scene geometry. Our revision prototype uses that feedback to adjust the grasp point or gripper orientation before trying again.',
     technologies: ['MuJoCo', 'Python', 'Franka Panda', 'Inverse kinematics'],
     contributions: [
-      'Implemented a simulated Panda execution loop for grasp, lift, and placement actions.',
+      'Connected language-generated actions to the simulated Panda and implemented feedback for retrying blocked motions.',
       'Built checks that distinguish an unreached target from a contact or stability failure after the robot reaches it.',
-      'Designed simulation tasks and worked with teammates to review the resulting test cases.',
+      'Investigated object slippage, gripper contact, collisions, and inverse-kinematics failures in local simulation runs.',
     ],
     results: [
       { value: '64', label: 'robotics tasks I designed across the broader project' },

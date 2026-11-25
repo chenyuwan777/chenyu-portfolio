@@ -2,7 +2,7 @@ import { BookOpen, PanelsTopLeft, Film } from 'lucide-react'
 import { ProjectImage } from './Projects.jsx'
 import { ResourceLinks } from './Resources.jsx'
 import ModelFigure from './ModelFigure.jsx'
-import { resourceUrl } from '../lib/urls.js'
+import { pageUrl, resourceUrl } from '../lib/urls.js'
 
 function ProjectMedia({ item }) {
   if (!item) return <p className="quiet-note"><Film size={16}/> Demonstration video pending.</p>
@@ -19,11 +19,11 @@ function ProjectMedia({ item }) {
 }
 export default function ProjectDetail({ project }) {
   if (!project) return <main id="main-content" tabIndex="-1" className="shell missing-page">
-    <h1>Project not found</h1><a className="button button-light" href="#projects">Browse projects</a>
+    <h1>Project not found</h1><a className="button button-light" href={pageUrl('projects')}>Browse projects</a>
   </main>
   return <main id="main-content" tabIndex="-1" className="detail-page">
     <div className="detail-top shell">
-      <a className="back-link" href="#projects"><PanelsTopLeft size={17}/> All projects</a>
+      <a className="back-link" href={pageUrl('projects')}><PanelsTopLeft size={17}/> All projects</a>
       <p className="eyebrow">{project.field}{project.placeholder ? ' / Project placeholder' : ''}</p>
       <h1>{project.title}</h1>
       <p className="detail-intro">{project.detailIntro || project.summary}</p>
